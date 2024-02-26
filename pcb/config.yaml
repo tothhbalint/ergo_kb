@@ -1,0 +1,170 @@
+units:
+  kx: cx
+  ky: cy
+  px: kx + 4
+  py: ky + 4
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [100,-100]
+      key.splay:
+      columns:
+        pinky:
+          key.column_net: P14
+        ring:
+          key.stagger: 4
+          key.column_net: P16
+        middle:
+          key.stagger: 5
+          key.column_net: P10
+        index:
+          key.stagger: -3
+          key.column_net: P7
+        inner:
+          key.stagger: -2
+          key.column_net: P9
+      rows:
+        bottom:
+        home:
+        top:
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1.2kx,-1.7ky]
+      columns:
+        mod:
+          key:
+            splay: 14
+            spread: 15
+        layer:
+          key:
+            spread: 1.2kx
+            splay: -15
+        space:
+          key:
+            spread: 1.6kx
+            splay: 55
+            shift: [-0.5kx,0]
+      rows:
+        cluster:
+outlines:
+    board:
+        -   what: polygon
+            fillet: 2
+            points:
+                -   ref: thumb_space_cluster
+                    shift: [1.6cx, -0.7cy]
+                -   ref: thumb_space_cluster
+                    shift: [0.8cx, -0.7cy]
+                -   ref: thumb_space_cluster
+                    shift: [-1cx, -0.7cy]
+
+                -   ref: thumb_mod_cluster
+                    shift: [1cx, -0.95cy]
+                -   ref: thumb_mod_cluster
+                    shift: [-0.7cx, -0.7cy]
+
+                -   ref: matrix_middle_bottom
+                    shift: [0.3cx, -1cy]
+                -   ref: matrix_middle_bottom
+                    shift: [-0.2cx, -1cy]
+
+                -   ref: matrix_ring_bottom
+                    shift: [.8cx, -.6cy]
+                -   ref: matrix_ring_bottom
+                    shift: [0.8cx, -.6cy]
+                -   ref: matrix_ring_bottom
+                    shift: [-0.cx, -.6cy]
+
+                -   ref: matrix_pinky_bottom
+                    shift: [0.8cx, -0.6cy]
+                -   ref: matrix_pinky_bottom
+                    shift: [0.6cx, -0.6cy]
+                -   ref: matrix_pinky_bottom
+                    shift: [-0.6cx, -0.6cy]
+
+                -   ref: matrix_pinky_top
+                    shift: [-0.6cx, 0.6cy]
+                -   ref: matrix_pinky_top
+                    shift: [0.4cx, 0.6cy]
+
+                -   ref: matrix_ring_top
+                    shift: [-0.5cx, 0.6cy]
+                -   ref: matrix_ring_top
+                    shift: [0.4cx, 0.6cy]
+
+                -   ref: matrix_middle_top
+                    shift: [-0.4cx, 0.6cy]
+                -   ref: matrix_middle_top
+                    shift: [0.4cx, 0.6cy]
+
+                -   ref: matrix_index_top
+                    shift: [-0.4cx, 0.6cy]
+                -   ref: matrix_index_top
+                    shift: [0.3cx, 0.6cy]
+
+                -   ref: matrix_inner_top
+                    shift: [-0.6cx, 0.6cy]
+                -   ref: matrix_inner_top
+                    shift: [0.5cx, 0.6cy]
+
+                -   ref: matrix_inner_top
+                    shift: [0.6cx, 0.6cy]
+                -   ref: matrix_inner_top
+                    shift: [1.8cx, 0.6cy]
+
+                -   ref: matrix_inner_bottom
+                    shift: [1.8cx, -0.6cy]
+pcbs:
+  main_pcb:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0,-5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [matrix_inner_top]
+          shift: [1.2kx,-0.5ky]
+          rotate: -90
+      encoder:
+        what: rotary
+        where:
+          ref: matrix_inner_bottom
+          shift: [1.2kx,-0.5ky]
+        params:
+          from: D7
+          to: E6
+          A: B4
+          B: B5
+          C: GND
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+        where:
+          ref.aggregate.parts: [matrix_inner_top]
+          shift: [1.2kx,-1.2ky]
+          rotate: -90
