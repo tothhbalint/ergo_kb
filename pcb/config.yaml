@@ -35,87 +35,72 @@ points:
       columns:
         mod:
           key:
-            splay: 14
-            spread: 15
+            splay: 15
+            spread: 1.3kx
+            shift: [0,0.15ky]
         layer:
           key:
             spread: 1.2kx
             splay: -15
         space:
           key:
-            spread: 1.6kx
-            splay: 55
-            shift: [-0.5kx,0]
+            spread: 1.3kx
+            splay: -15
+            shift: [0,-0.2ky]
       rows:
         cluster:
 outlines:
-    board:
-        -   what: polygon
-            fillet: 2
-            points:
-                -   ref: thumb_space_cluster
-                    shift: [1.6cx, -0.7cy]
-                -   ref: thumb_space_cluster
-                    shift: [0.8cx, -0.7cy]
-                -   ref: thumb_space_cluster
-                    shift: [-1cx, -0.7cy]
+  raw:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [px,py]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+        - ref: thumb_space_cluster
+          shift: [0.75kx,-0.75ky]
+        - ref: thumb_space_cluster
+          shift: [0.75kx,0.75ky]
 
-                -   ref: thumb_mod_cluster
-                    shift: [1cx, -0.95cy]
-                -   ref: thumb_mod_cluster
-                    shift: [-0.7cx, -0.7cy]
+        - ref: matrix_inner_top
+          shift: [2.1kx,0.75ky]
+        
+        - ref: matrix_middle_top
+          shift: [0.75kx,0.75kx]
+        - ref: matrix_middle_top
+          shift: [-0.75kx,0.75kx]
 
-                -   ref: matrix_middle_bottom
-                    shift: [0.3cx, -1cy]
-                -   ref: matrix_middle_bottom
-                    shift: [-0.2cx, -1cy]
+        - ref: matrix_pinky_top
+          shift: [-0.75kx,0.75ky]
 
-                -   ref: matrix_ring_bottom
-                    shift: [.8cx, -.6cy]
-                -   ref: matrix_ring_bottom
-                    shift: [0.8cx, -.6cy]
-                -   ref: matrix_ring_bottom
-                    shift: [-0.cx, -.6cy]
+        - ref: matrix_pinky_bottom
+          shift: [-0.75kx,-0.75ky]
 
-                -   ref: matrix_pinky_bottom
-                    shift: [0.8cx, -0.6cy]
-                -   ref: matrix_pinky_bottom
-                    shift: [0.6cx, -0.6cy]
-                -   ref: matrix_pinky_bottom
-                    shift: [-0.6cx, -0.6cy]
+        - ref: matrix_ring_bottom
+          shift: [-0.5kx,-1ky]
 
-                -   ref: matrix_pinky_top
-                    shift: [-0.6cx, 0.6cy]
-                -   ref: matrix_pinky_top
-                    shift: [0.4cx, 0.6cy]
+        - ref: matrix_ring_bottom
+          shift: [1kx,-1ky]
+        
+        - ref: thumb_mod_cluster
+          shift: [-0.75kx,-0.75ky]
 
-                -   ref: matrix_ring_top
-                    shift: [-0.5cx, 0.6cy]
-                -   ref: matrix_ring_top
-                    shift: [0.4cx, 0.6cy]
-
-                -   ref: matrix_middle_top
-                    shift: [-0.4cx, 0.6cy]
-                -   ref: matrix_middle_top
-                    shift: [0.4cx, 0.6cy]
-
-                -   ref: matrix_index_top
-                    shift: [-0.4cx, 0.6cy]
-                -   ref: matrix_index_top
-                    shift: [0.3cx, 0.6cy]
-
-                -   ref: matrix_inner_top
-                    shift: [-0.6cx, 0.6cy]
-                -   ref: matrix_inner_top
-                    shift: [0.5cx, 0.6cy]
-
-                -   ref: matrix_inner_top
-                    shift: [0.6cx, 0.6cy]
-                -   ref: matrix_inner_top
-                    shift: [1.8cx, 0.6cy]
-
-                -   ref: matrix_inner_bottom
-                    shift: [1.8cx, -0.6cy]
+        - ref: thumb_layer_cluster
+          shift: [-0.5kx,-0.75ky]
+        - ref: thumb_layer_cluster
+          shift: [0.5kx,-0.75ky]
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
 pcbs:
   main_pcb:
     outlines:
