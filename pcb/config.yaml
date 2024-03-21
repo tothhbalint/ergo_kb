@@ -11,44 +11,52 @@ points:
       key.splay:
       columns:
         pinky:
-          key.column_net: P14
+          key.column_net: P9
         ring:
-          key.stagger: 4
-          key.column_net: P16
+          key.stagger: 6
+          key.column_net: P8
         middle:
           key.stagger: 5
-          key.column_net: P10
+          key.column_net: P7
         index:
           key.stagger: -3
-          key.column_net: P7
+          key.column_net: P6
         inner:
           key.stagger: -2
-          key.column_net: P9
+          key.column_net: P5
       rows:
         bottom:
+          row_net: P19
         home:
+          row_net: P20
         top:
+          row_net: P21
     thumb:
       anchor:
         ref: matrix_inner_bottom
-        shift: [-1.2kx,-1.7ky]
+        rotate: -10
+        shift: [-1.6kx,-1.5ky]
       columns:
         mod:
           key:
             splay: 15
             spread: 1.3kx
             shift: [0,0.15ky]
+            column_net: P7
         layer:
           key:
             spread: 1.2kx
             splay: -15
+            column_net: P6
         space:
           key:
             spread: 1.3kx
             splay: -15
             shift: [0,-0.2ky]
+            column_net: P5
       rows:
         cluster:
+          row_net: P18
 outlines:
   raw:
     - what: rectangle
@@ -63,32 +71,52 @@ outlines:
   board:
     - what: polygon
       operation: stack
-      fillet: 2
+      fillet: 5
       points:
         - ref: thumb_space_cluster
           shift: [0.75kx,-0.75ky]
         - ref: thumb_space_cluster
           shift: [0.75kx,0.75ky]
 
+        - ref: matrix_inner_bottom
+          shift: [1.9kx,-0.75ky]
+
         - ref: matrix_inner_top
-          shift: [2.1kx,0.75ky]
+          shift: [1.9kx,0.75ky]
+        - ref: matrix_inner_top
+          shift: [1.9kx,0.75ky]
+        - ref: matrix_inner_top
+          shift: [-0.25kx,0.75ky]
+
+        - ref: matrix_index_top
+          shift: [0.25kx,0.75ky]
+        - ref: matrix_index_top
+          shift: [-0.25kx,0.75ky]
         
         - ref: matrix_middle_top
-          shift: [0.75kx,0.75kx]
+          shift: [0.5kx,0.75ky]
         - ref: matrix_middle_top
-          shift: [-0.75kx,0.75kx]
+          shift: [-0.5kx,0.75ky]
 
+        - ref: matrix_ring_top
+          shift: [0.25kx,0.75ky]
+        - ref: matrix_ring_top
+          shift: [-0.5kx,0.75ky]
+
+        - ref: matrix_pinky_top 
+          shift: [0.25kx,0.75ky]
         - ref: matrix_pinky_top
           shift: [-0.75kx,0.75ky]
 
         - ref: matrix_pinky_bottom
           shift: [-0.75kx,-0.75ky]
+        - ref: matrix_pinky_bottom
+          shift: [0.5kx,-0.75ky]
 
         - ref: matrix_ring_bottom
-          shift: [-0.5kx,-1ky]
-
+          shift: [-0.25kx,-0.75ky]
         - ref: matrix_ring_bottom
-          shift: [1kx,-1ky]
+          shift: [0.75kx,-0.75ky]
         
         - ref: thumb_mod_cluster
           shift: [-0.75kx,-0.75ky]
@@ -112,7 +140,7 @@ pcbs:
         where: true
         params:
           keycaps: true
-          reverse: false
+          reverse: true
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -125,7 +153,7 @@ pcbs:
         adjust:
           shift: [0,-5]
       promicro:
-        what: promicro
+        what: nice-nano
         params:
           orientation: "down"
         where:
@@ -138,10 +166,10 @@ pcbs:
           ref: matrix_inner_bottom
           shift: [1.2kx,-0.5ky]
         params:
-          from: D7
-          to: E6
-          A: B4
-          B: B5
+          from: NN_101
+          to: GND
+          A: NN_102
+          B: NN_107
           C: GND
       oled:
         what: oled
@@ -153,3 +181,29 @@ pcbs:
           ref.aggregate.parts: [matrix_inner_top]
           shift: [1.2kx,-1.2ky]
           rotate: -90
+      jst-s2b-ph-kl:
+        what: jst-s2b
+        where:
+            ref: matrix_inner_bottom
+            shift: [21, -2]
+            rotate: 180
+        params:
+            neg: GND
+      pcm12:
+        what: pcm12
+        where:
+            ref: matrix_inner_bottom
+            shift: [30.5, 3]
+            rotate: 90
+        params:
+            from: pos
+            to: RAW
+      wuerth-434121025816:
+        what: wuerth
+        where:
+            ref: matrix_inner_bottom
+            shift: [30, -6]
+            rotate: 90
+        params:
+            r1: RST
+            r2: GND
