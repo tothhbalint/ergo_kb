@@ -166,10 +166,10 @@ pcbs:
           ref: matrix_inner_bottom
           shift: [1.2kx,-0.5ky]
         params:
-          from: NN_101
+          from: P16
           to: GND
-          A: NN_102
-          B: NN_107
+          A: P15
+          B: P14
           C: GND
       oled:
         what: oled
@@ -182,10 +182,10 @@ pcbs:
           shift: [1.2kx,-1.2ky]
           rotate: -90
       jst-s2b-ph-kl:
-        what: jst-s2b
+        what: jst-s2b-ph-kl
         where:
             ref: matrix_inner_bottom
-            shift: [21, -2]
+            shift: [15, -2]
             rotate: 180
         params:
             neg: GND
@@ -199,7 +199,7 @@ pcbs:
             from: pos
             to: RAW
       wuerth-434121025816:
-        what: wuerth
+        what: wuerth-434121025816
         where:
             ref: matrix_inner_bottom
             shift: [30, -6]
