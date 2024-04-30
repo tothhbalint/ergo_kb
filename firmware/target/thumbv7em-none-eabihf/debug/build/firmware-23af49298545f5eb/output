@@ -1,0 +1,5 @@
+cargo:rustc-link-search=/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/firmware-23af49298545f5eb/out
+cargo:rerun-if-changed=memory.x
+cargo:rustc-link-arg-bins=--nmagic
+cargo:rustc-link-arg-bins=-Tlink.x
+cargo:rustc-link-arg-bins=-Tdefmt.x

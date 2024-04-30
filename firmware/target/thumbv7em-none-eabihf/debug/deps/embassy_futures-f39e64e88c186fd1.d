@@ -1,0 +1,11 @@
+/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/deps/libembassy_futures-f39e64e88c186fd1.rmeta: /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/lib.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/fmt.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/block_on.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/yield_now.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/join.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/select.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/../README.md
+
+/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/deps/embassy_futures-f39e64e88c186fd1.d: /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/lib.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/fmt.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/block_on.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/yield_now.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/join.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/select.rs /Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/../README.md
+
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/lib.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/fmt.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/block_on.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/yield_now.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/join.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/select.rs:
+/Users/user/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-futures-0.1.1/src/../README.md:

@@ -1,0 +1,6 @@
+$ mkdir -p "/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/az-10e4d59a519e3c6b/out/try_track_caller"
+$ cd "/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/az-10e4d59a519e3c6b/out/try_track_caller"
+$ printf '%s' "// try_tra"... > "/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/az-10e4d59a519e3c6b/out/try_track_caller/try_track_caller.rs"
+$ cd "/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/az-10e4d59a519e3c6b/out/try_track_caller" && "rustc" "try_track_caller.rs" "--emit=dep-info,metadata" >& /dev/null
+cargo:rustc-cfg=track_caller
+$ rm -r "/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/az-10e4d59a519e3c6b/out/try_track_caller"

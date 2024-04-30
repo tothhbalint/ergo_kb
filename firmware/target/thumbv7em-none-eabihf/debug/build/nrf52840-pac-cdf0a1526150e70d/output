@@ -1,0 +1,3 @@
+cargo:rustc-link-search=/Users/user/Projects/ergo_kb/firmware/target/thumbv7em-none-eabihf/debug/build/nrf52840-pac-cdf0a1526150e70d/out
+cargo:rerun-if-changed=device.x
+cargo:rerun-if-changed=build.rs
