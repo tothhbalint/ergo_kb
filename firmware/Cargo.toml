@@ -3,6 +3,7 @@
 [package]
 edition = "2021"
 name = "firmware"
+description = "Simple splitkb firmware written for the nice!nano and a 36 key corne like keyboard"
 version = "0.1.0"
 
 [dependencies]
@@ -13,8 +14,8 @@ defmt-rtt = { version = "0.4.0", optional = true }
 embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-thread", "integrated-timers"] }
 embassy-futures = "0.1.1"
 embassy-nrf = { version = "0.1.0", features = ["nrf52840", "gpiote", "time-driver-rtc1"] }
-embassy-sync = "0.5.0"
 embassy-time = { version = "0.3.0", features = ["tick-hz-32_768"] }
+embedded-hal = "1.0.0"
 panic-halt = "0.2.0"
 panic-probe = { version = "0.3.1", features = ["print-defmt"], optional = true }
 
@@ -45,7 +46,7 @@ debug = [
     "defmt-rtt",
     "panic-probe",
     "embassy-executor/defmt",
-    "embassy-sync/defmt",
+
     "embassy-futures/defmt",
     "embassy-time/defmt",
     "embassy-time/defmt-timestamp-uptime",

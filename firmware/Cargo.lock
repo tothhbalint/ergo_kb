@@ -411,8 +411,8 @@ dependencies = [
  "embassy-executor",
  "embassy-futures",
  "embassy-nrf",
- "embassy-sync",
  "embassy-time",
+ "embedded-hal 1.0.0",
  "panic-halt",
  "panic-probe",
 ]
