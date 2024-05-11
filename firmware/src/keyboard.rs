@@ -1,10 +1,11 @@
-use crate::{keys::KeyMap, usb::UsbControl};
+use crate::{keys::{KeyMap, KeyReport}, usb::UsbControl};
 
 use embassy_nrf::{
     gpio::{AnyPin, Input, Level, Output, OutputDrive},
     peripherals,
     usb::Out,
 };
+
 use embassy_time::Timer;
 use embedded_hal::digital::{InputPin, OutputPin};
 
@@ -41,10 +42,11 @@ impl<'a> Keyboard<'a> {
             self.usbd.setup_device().await;
         }
         self.scan().await;
+        let reported_keys : KeyReport;
         for (row_idx, row) in self.key_states.iter().enumerate() {
             for (col_idx, &col) in row.iter().enumerate() {
                 if col {
-                    self.key_map.get_key(row_idx, col_idx);
+                    reported_keys = self.key_map.get_key(row_idx, col_idx);
                 }
             }
         }

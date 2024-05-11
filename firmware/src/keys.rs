@@ -1,4 +1,13 @@
-pub struct KeyDescriptor {}
+pub struct KeyDescriptor {
+
+}
+
+impl KeyDescriptor {
+    pub fn new() -> Self {
+        KeyDescriptor{}
+    }
+
+}
 
 pub(crate) struct KeyMap {}
 
@@ -7,7 +16,10 @@ impl KeyMap {
         KeyMap {}
     }
 
-    pub(crate) fn get_key(&self, row: usize, col: usize) {}
+    pub(crate) fn get_key(&self, row: usize, col: usize) ->KeyReport {
+        let key_descriptor = KeyDescriptor::new();
+        return key_descriptor;
+    }
 }
 
 pub struct KeyReport {

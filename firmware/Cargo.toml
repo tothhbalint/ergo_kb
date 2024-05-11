@@ -15,9 +15,11 @@ embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-t
 embassy-futures = "0.1.1"
 embassy-nrf = { version = "0.1.0", features = ["nrf52840", "gpiote", "time-driver-rtc1"] }
 embassy-time = { version = "0.3.0", features = ["tick-hz-32_768"] }
+embassy-usb = { version = "0.1.0", features = ["defmt", "log"] }
 embedded-hal = "1.0.0"
 panic-halt = "0.2.0"
 panic-probe = { version = "0.3.1", features = ["print-defmt"], optional = true }
+usbd-hid = { version = "0.7.0", features = ["defmt"] }
 
 [[bin]]
 name = "firmware"

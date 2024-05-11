@@ -1,1 +1,6 @@
 .DS_Store
+firmware/uf2/
+firmware/target/
+firmware/*.bin
+notes.md
+pcb/main_board/main_board-backups
