@@ -1,7 +1,7 @@
 use embassy_nrf::usb;
-use usbd_hid::descriptor::{KeyboardReport, SerializedDescriptor};
+use usbd_hid::descriptor::{AsInputReport, KeyboardReport, SerializedDescriptor};
 
-use crate::{keyboard, keys::KeyReport};
+use crate::{keyboard, keys::{KeyDescriptor, KeyReport}};
 use embassy_usb::{
     class::hid::{Config, HidReader, HidReaderWriter, HidWriter, ReportId, RequestHandler, State},
     control::OutResponse,
@@ -34,13 +34,13 @@ impl RequestHandler for UsbHandler {
 
 pub struct UsbControl<'d, D: Driver<'d>> {
     usb_device : UsbDevice<'d,D>,
-    keyboard_writer : UsbHidWriter<'d>,
-    keyboard_reader : UsbHidReader<'d>
+    keyboard_writer : HidWriter<'d>,
+    keyboard_reader : HidReader<'d>
 }
 
-impl<driver : Driver<'static>> UsbControl<'static,driver> {
-    pub fn new() -> Self {
-        let mut usb_config = embassy_usb::Config::new(0x4242,0x6969);
+impl<D : Driver<'static>> UsbControl<'static,driver> {
+    pub fn new(driver : D) -> Self {
+        let mut usb_config = embassy_usb::Config::new(0x1209,0x6969);
         usb_config.manufacturer = Some("TB");
         usb_config.product = Some("SPLITKB");
         usb_config.serial_number = Some("69696");
@@ -92,9 +92,18 @@ impl<driver : Driver<'static>> UsbControl<'static,driver> {
         let device = builder.build();
         Self {
             usb_device : device,
-            keyboard_reader : UsbHidReader::new(reader),
-            keyboard_writer : UsbHidWriter::new(writer),
+            keyboard_reader : reader,
+            keyboard_writer : writer,
         }
+    }
+
+    pub async fn send_report<IR : AsInputReport>(&mut self,r : &IR) -> Result<(),HidError> {
+        self.keyboard_writer.write_serialize(r)
+                            .await
+                            .map_err( | e | match e {
+                                embassy_usb::driver::EndpointError::BufferOverflow => HidError::BufferOverflow,
+                                embassy_usb::driver::EndpointError::Disabled => HidError::UsbDisabled,
+                            });
     }
 }
 
