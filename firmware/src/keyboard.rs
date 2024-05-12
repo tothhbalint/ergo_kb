@@ -1,19 +1,27 @@
-use crate::{keys::{KeyMap, KeyReport}, usb::UsbControl};
+use crate::{keys::{KeyCode, KeyMap, KeyReport}, usb::UsbControl};
 
 use embassy_nrf::{
     gpio::{AnyPin, Input, Level, Output, OutputDrive},
     peripherals,
-    usb::Out,
+    usb::{vbus_detect::HardwareVbusDetect, Out},
 };
 
 use embassy_time::Timer;
 use embedded_hal::digital::{InputPin, OutputPin};
+use usbd_hid::descriptor::KeyboardReport;
+
+bind_interrupts!(struct Irqs {
+    USBD => usb::InterruptHandler<peripherals::USBD>;
+    POWER_CLOCK => usb::vbus_detect::InterruptHandler;
+});
+
 
 pub struct Keyboard<'a> {
     input_pins: [Input<'a, embassy_nrf::gpio::AnyPin>; 5],
     output_pins: [Output<'a, embassy_nrf::gpio::AnyPin>; 4],
     key_states: [[bool; 5]; 4],
     key_map: KeyMap,
+    report : KeyBoardReport,
     usbd : UsbControl,
 }
 
@@ -26,12 +34,19 @@ impl<'a> Keyboard<'a> {
 
         let key_states = [[false; 5]; 4];
         let key_map = KeyMap::new();
-        let usbd = UsbControl::new();
+        let driver = Driver::new(p.USBD, Irqs, HardwareVbusDetect::new(Irqs));
+        let usbd = UsbControl::new(driver);
         Keyboard {
             input_pins,
             output_pins,
             key_states,
             key_map,
+            report : KeyboardReport {
+                modifier: 0,
+                reserved: 0,
+                leds: 0,
+                keycodes: [0; 6],
+            },
             usbd
         }
     }
@@ -42,24 +57,25 @@ impl<'a> Keyboard<'a> {
             self.usbd.setup_device().await;
         }
         self.scan().await;
-        let reported_keys : KeyReport;
-        for (row_idx, row) in self.key_states.iter().enumerate() {
-            for (col_idx, &col) in row.iter().enumerate() {
-                if col {
-                    reported_keys = self.key_map.get_key(row_idx, col_idx);
-                }
-            }
+        match usbd.send_report(&self.report).await {
+            Ok(()) => {}
+            Err(e) => error!("Send keyboard report error: {}", e),
+        };
+        // Reset report key states
+        for bit in &mut self.report.keycodes {
+            *bit = 0;
         }
     }
 
     pub(crate) async fn scan(&mut self) {
+        // TODO: update key report, Read upon N-key rollover, add debouncing
         for (out_idx, out_pin) in self.output_pins.iter_mut().enumerate() {
             out_pin.set_high();
             Timer::after_micros(1).await;
             for (in_idx, in_pin) in self.input_pins.iter_mut().enumerate() {
                 let changed = in_pin.is_high().ok().unwrap_or_default();
                 if changed {
-                    self.key_states[out_idx][in_idx] = changed;
+                    let code : KeyCode = self.key_map[in_idx][out_idx];
                 }
             }
             out_pin.set_low();
